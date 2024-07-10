@@ -1,4 +1,6 @@
 mod primes;
+mod prim_roots;
+
 use std::time::Instant;
 
 
@@ -6,7 +8,7 @@ use std::time::Instant;
 fn main() {
     let start_seq = Instant::now();
 
-    println!("{:?}", primes::par_pi(10000000));
+    println!("{:?}", prim_roots::euler_phi(100));
 
     let elapsed_seq = start_seq.elapsed();
 

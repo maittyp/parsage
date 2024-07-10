@@ -22,3 +22,9 @@ pub fn par_pi(n: u64) -> u64 {
         .filter(|&i| is_prime(i))
         .count() as u64
 }
+
+pub fn par_prime_factors(n: u64) -> Vec<u64> {
+    (2..=n).into_par_iter()
+        .filter(|&num| n % num == 0 && is_prime(num))
+        .collect()
+}
