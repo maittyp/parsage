@@ -9,7 +9,7 @@ use std::time::Instant;
 fn main() {
     let start_seq = Instant::now();
 
-    println!("{:?}", prim_roots::prim_root(47));
+    println!("{:?}", utility::inverse_mod(4, 6));
 
     let elapsed_seq = start_seq.elapsed();
 

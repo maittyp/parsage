@@ -14,8 +14,6 @@ pub fn euler_phi(n: u64) -> u64 {
     (n as f64 * prod) as u64
 }
 
-// computes a^m (mod n)
-
 fn ord_mod_n(a: u64, n: u64) -> u64 {
     if a%n == 1 {
         return 0
