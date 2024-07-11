@@ -1,6 +1,6 @@
 mod primes;
 mod prim_roots;
-mod gcd;
+mod utility;
 
 use std::time::Instant;
 
@@ -9,7 +9,7 @@ use std::time::Instant;
 fn main() {
     let start_seq = Instant::now();
 
-    // println!("{:?}", prim_roots::prim_root(97));
+    println!("{:?}", prim_roots::prim_root(47));
 
     let elapsed_seq = start_seq.elapsed();
 
