@@ -8,7 +8,7 @@ use std::time::Instant;
 fn main() {
     let start_seq = Instant::now();
 
-    println!("{:?}", prim_roots::euler_phi(1200));
+    println!("{:?}", prim_roots::ord_mod_n(2, 5));
 
     let elapsed_seq = start_seq.elapsed();
 
