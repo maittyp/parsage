@@ -9,7 +9,7 @@ use std::time::Instant;
 fn main() {
     let start_seq = Instant::now();
 
-    println!("{:?}", utility::inverse_mod(4, 6));
+    println!("{:?}", primes::is_prime(11));
 
     let elapsed_seq = start_seq.elapsed();
 

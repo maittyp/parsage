@@ -28,7 +28,7 @@ pub fn inverse_mod(a: i64, n: i64) -> i64 {
         panic!("Inverse of {} modulo {} does not exist", a, n)
     }
     else {
-        let (x, _y, _g) = extended_gcd(a, n);
-        x
+        let (_x, y, _g) = extended_gcd(a, n);
+        y
     }
 }
