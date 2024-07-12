@@ -1,4 +1,16 @@
-// computes the greatest common divisor of a and b, using the Euclidean algorithm
+use rayon::prelude::*;
+use crate::primes::par_prime_factors;
+
+// computes phi(n), the number of numbers between 1 and n that are coprime to n
+pub fn euler_phi(n: u64) -> u64 {
+    let factors = par_prime_factors(n);
+    let prod = factors.par_iter()
+        .fold(|| 1.0, |a, &e| a*(1.0 - 1.0/(e as f64)))
+        .reduce(|| 1.0, |a, b| a * b);
+    (n as f64 * prod) as u64
+}
+
+// computes the greatest common divisor of a and b, using the Euclidean algorithm (a >= b)
 pub fn gcd(a: i64, b: i64) -> i64 {
     if b == 0 {
         a

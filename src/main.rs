@@ -1,6 +1,7 @@
 mod primes;
 mod prim_roots;
 mod utility;
+mod rsa;
 
 use std::time::Instant;
 
@@ -9,7 +10,7 @@ use std::time::Instant;
 fn main() {
     let start_seq = Instant::now();
 
-    println!("{:?}", primes::is_prime(11));
+    println!("{:?}", rsa::encrypt(17, 19, 23));
 
     let elapsed_seq = start_seq.elapsed();
 
