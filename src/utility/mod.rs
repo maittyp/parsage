@@ -1,3 +1,4 @@
+// computes the greatest common divisor of a and b, using the Euclidean algorithm
 pub fn gcd(a: i64, b: i64) -> i64 {
     if b == 0 {
         a
@@ -15,6 +16,7 @@ pub fn pow_mod(a: u64, m: u64, n: u64) -> u64 {
     helper(a, m, n, 1)
 }
 
+// computes x,y,g such that ax + by = g (extended Euclidean algorithm)
 pub fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64) {
     if b == 0 {
         (a, 1, 0)
@@ -23,6 +25,8 @@ pub fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64) {
         (gcd, y1, x1 - (a / b) * y1)
     }
 }
+
+// computes a^-1 such that a*a^-1 = 1 (mod n)
 pub fn inverse_mod(a: i64, n: i64) -> i64 {
     if gcd(n, a) != 1 {
         panic!("Inverse of {} modulo {} does not exist", a, n)
