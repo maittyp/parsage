@@ -21,7 +21,7 @@ pub fn gcd(a: i64, b: i64) -> i64 {
 
 // computes a^m (mod n)
 pub fn pow_mod(a: u64, m: u64, n: u64) -> u64 {
-    fn helper(a: u64, m: u64, n:u64, ans: u64) -> u64 {
+    fn helper(a: u64, m: u64, n: u64, ans: u64) -> u64 {
         if m == 0 { ans }
         else {helper(a,m-1, n,ans*a % n)}
     }
@@ -45,6 +45,8 @@ pub fn inverse_mod(a: i64, n: i64) -> i64 {
     }
     else {
         let (_x, y, _g) = extended_gcd(a, n);
-        y
+        let mut yy = y;
+        if yy < 0 {yy += n}
+        yy
     }
 }
