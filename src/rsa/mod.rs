@@ -3,7 +3,7 @@ use crate::utility::*;
 use rayon::iter::*;
 use rayon::prelude::*;
 
-// returns (encrypted(x), public key)
+/// returns (encrypted(x), public key)
 pub fn encrypt(p: u64, q: u64, x: u64) -> (u64, (u64, u64)) {
     let n = p*q;
     let phi = (p-1)*(q-1);
@@ -16,7 +16,7 @@ pub fn encrypt(p: u64, q: u64, x: u64) -> (u64, (u64, u64)) {
     (pow_mod(x, e, n), (n,e))
 }
 
-// decrypts m, given a public key
+/// decrypts m, given a public key
 pub fn decrypt(m: u64, pub_key: (u64, u64)) -> u64 {
     let (n, e) = pub_key;
     let phi = euler_phi(n);

@@ -1,7 +1,7 @@
 use rayon::prelude::*;
 use crate::primes::par_prime_factors;
 
-// computes phi(n), the number of numbers between 1 and n that are coprime to n
+/// computes phi(n), the number of numbers between 1 and n that are coprime to n
 pub fn euler_phi(n: u64) -> u64 {
     let factors = par_prime_factors(n);
     let prod = factors.par_iter()
@@ -10,7 +10,7 @@ pub fn euler_phi(n: u64) -> u64 {
     (n as f64 * prod) as u64
 }
 
-// computes the greatest common divisor of a and b, using the Euclidean algorithm (a >= b)
+/// computes the greatest common divisor of a and b, using the Euclidean algorithm (a >= b)
 pub fn gcd(a: i64, b: i64) -> i64 {
     if b == 0 {
         a
@@ -19,7 +19,7 @@ pub fn gcd(a: i64, b: i64) -> i64 {
     }
 }
 
-// computes a^m (mod n)
+/// computes a^m (mod n)
 pub fn pow_mod(a: u64, m: u64, n: u64) -> u64 {
     fn helper(a: u64, m: u64, n: u64, ans: u64) -> u64 {
         if m == 0 { ans }
@@ -28,7 +28,7 @@ pub fn pow_mod(a: u64, m: u64, n: u64) -> u64 {
     helper(a, m, n, 1)
 }
 
-// computes x,y,g such that ax + by = g (extended Euclidean algorithm)
+/// computes x,y,g such that ax + by = g (extended Euclidean algorithm)
 pub fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64) {
     if b == 0 {
         (a, 1, 0)
@@ -38,7 +38,7 @@ pub fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64) {
     }
 }
 
-// computes a^-1 such that a*a^-1 = 1 (mod n)
+/// computes a^-1 such that a*a^-1 = 1 (mod n)
 pub fn inverse_mod(a: i64, n: i64) -> i64 {
     if gcd(n, a) != 1 {
         panic!("Inverse of {} modulo {} does not exist", a, n)

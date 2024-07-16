@@ -11,7 +11,7 @@ use std::time::Instant;
 fn main() {
     let start_seq = Instant::now();
 
-    println!("{:?}", factor::factor(200));
+    println!("{:?}", factor::factor(25));
 
     let elapsed_seq = start_seq.elapsed();
 

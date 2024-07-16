@@ -23,7 +23,7 @@ pub fn par_pi(n: u64) -> u64 {
         .count() as u64
 }
 
-// Finds the unique prime factors of n
+/// Finds the unique prime factors of n
 pub fn par_prime_factors(n: u64) -> Vec<u64> {
     (2..=n).into_par_iter()
         .filter(|&num| n % num == 0 && is_prime(num))

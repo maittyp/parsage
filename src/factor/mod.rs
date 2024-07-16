@@ -1,11 +1,11 @@
 use chashmap::CHashMap;
 use rayon::prelude::*;
-use std::sync::Arc;
+use crate::primes::is_prime;
 
-// Function to completely factorize an integer
-pub fn factor(n: u64) -> Arc<CHashMap<u64, u64>> {
+/// Function to completely factorize an integer
+pub fn factor(n: u64) -> String {
     let mut n = n;
-    let factors = Arc::new(CHashMap::new());
+    let factors: CHashMap<u64, u64> = CHashMap::new();
 
     // Handle the factor 2
     while n % 2 == 0 {
@@ -35,24 +35,27 @@ pub fn factor(n: u64) -> Arc<CHashMap<u64, u64>> {
         factors.upsert(n, || 1, |v| *v += 1);
     }
 
-    factors
+    format_factors(factors)
 }
 
-// Format the factors as a string
-// fn format_factors(factors: &CHashMap<u64, u64>) -> String {
-//     let mut result = String::new();
-//     let mut sorted_factors: Vec<(&u64, &u64)> = factors.iter().collect();
-//     sorted_factors.sort_by_key(|&(factor, _)| factor);
-//
-//     for (factor, count) in sorted_factors {
-//         if !result.is_empty() {
-//             result.push('*');
-//         }
-//         if *count > 1 {
-//             result.push_str(&format!("{}^{}", factor, count));
-//         } else {
-//             result.push_str(&factor.to_string());
-//         }
-//     }
-//     result
-// }
+/// Format the factors as a string
+fn format_factors(factors: CHashMap<u64, u64>) -> String {
+    let mut result = String::new();
+    let mut sorted_factors: Vec<(u64, u64)> = factors.into_iter()
+        .filter(|(x,y)| is_prime(*x))
+        .collect();
+
+    sorted_factors.sort_by_key(|&(factor, _)| factor);
+
+    for (factor, count) in sorted_factors {
+        if !result.is_empty() {
+            result.push('*');
+        }
+        if count > 1 {
+            result.push_str(&format!("{}^{}", factor, count));
+        } else {
+            result.push_str(&factor.to_string());
+        }
+    }
+    result
+}
