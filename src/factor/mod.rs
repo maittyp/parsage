@@ -1,53 +1,35 @@
-use chashmap::CHashMap;
-use rayon::prelude::*;
-use crate::primes::is_prime;
+use std::collections::BTreeMap;
 
-/// Function to completely factorize an integer
-pub fn factor(n: u64) -> String {
-    let mut n = n;
-    let factors: CHashMap<u64, u64> = CHashMap::new();
-
-    // Handle the factor 2
-    while n % 2 == 0 {
-        factors.upsert(2, || 1, |v| *v += 1);
-        n /= 2;
+pub fn factor(mut number: u128) -> String {
+    let mut prime_factors: BTreeMap<u128, u128> = BTreeMap::new();
+    let mut freq:u128 = 0;
+    while number&1 == 0 {
+        number>>=1;
+        freq+=1;
     }
-
-    let upper_bound = (n as f64).sqrt() as u64 + 1;
-
-    // Parallel processing of potential factors
-    (3..=upper_bound)
-        .into_par_iter()
-        .filter(|&i| i % 2 != 0) // Only consider odd numbers
-        .for_each(|i| {
-            let mut count = 0;
-            let mut value = n;
-            while value % i == 0 {
-                count += 1;
-                value /= i;
+    if freq > 0 { prime_factors.insert(2, freq);}
+    let mut i = 3;
+    while i*i <= number {
+        if number%i==0 {
+            freq = 0;
+            while number%i==0 {
+                number/=i;
+                freq+=1;
             }
-            if count > 0 {
-                factors.upsert(i, || count, |v| *v += count);
-            }
-        });
-
-    if n > 1 {
-        factors.upsert(n, || 1, |v| *v += 1);
+            prime_factors.insert(i, freq);
+        }
+        i+=2;
     }
+    if number > 1 {prime_factors.insert(number, 1);}
 
-    format_factors(factors)
+    format_factors(prime_factors)
 }
 
 /// Format the factors as a string
-fn format_factors(factors: CHashMap<u64, u64>) -> String {
+fn format_factors(factors: BTreeMap<u128, u128>) -> String {
     let mut result = String::new();
-    let mut sorted_factors: Vec<(u64, u64)> = factors.into_iter()
-        .filter(|(x,y)| is_prime(*x))
-        .collect();
 
-    sorted_factors.sort_by_key(|&(factor, _)| factor);
-
-    for (factor, count) in sorted_factors {
+    for (factor, count) in factors {
         if !result.is_empty() {
             result.push('*');
         }

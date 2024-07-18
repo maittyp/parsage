@@ -15,7 +15,7 @@ pub fn is_prime(n: u64) -> bool {
     }
 }
 
-// computes pi(x), the number of primes less than or equal to n
+/// computes pi(x), the number of primes less than or equal to n
 pub fn par_pi(n: u64) -> u64 {
     (2..=n)
         .into_par_iter()
